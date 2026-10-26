@@ -2,9 +2,12 @@
  * Renders submitted resume data into a PDF preview response.
  */
 import { createElement } from 'react';
+import { renderToBuffer } from '@react-pdf/renderer';
+import { ResumeDocument } from '@/src/components/resume/ResumeDocument';
 import { ResumeSchema } from '@/src/lib/application-types';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 // Validate browser-supplied resume data and stream back a freshly rendered PDF.
 export async function POST(request: Request) {
@@ -14,13 +17,6 @@ export async function POST(request: Request) {
     const raw: unknown = await request.json();
     const parsed = ResumeSchema.safeParse(raw);
     if (!parsed.success) return Response.json({ error: 'Resume content is invalid.' }, { status: 400 });
-
-    const moduleStartedAt = performance.now();
-    const [{ renderToBuffer }, { ResumeDocument }] = await Promise.all([
-      import('@react-pdf/renderer'),
-      import('@/src/components/resume/ResumeDocument'),
-    ]);
-    console.info(`[resume-preview] PDF module initialization: ${(performance.now() - moduleStartedAt).toFixed(1)}ms`);
 
     console.info('[resume-preview] PDF render start');
     const renderStartedAt = performance.now();

@@ -17,6 +17,7 @@ import type { PortfolioRecord } from "@/src/lib/portfolio-types";
 import { ResumeDocument } from "@/src/components/resume/ResumeDocument";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 type GmailConnection = {
   _id: ObjectId;

@@ -9,6 +9,7 @@ import type { PortfolioRecord } from '@/src/lib/portfolio-types';
 import { collection, databaseErrorResponse } from '@/src/lib/mongo';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 type RouteProps = { params: Promise<{ id: string }> };
 
 // Read and validate the stored resume, then render and download it as a PDF.
