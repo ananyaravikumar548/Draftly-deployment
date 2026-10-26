@@ -27,8 +27,6 @@ export async function POST(request: Request) {
     return new Response(new Uint8Array(pdf), { headers: { 'Content-Type': 'application/pdf', 'Cache-Control': 'no-store' } });
   } catch (error) {
     console.error(`[resume-preview] POST failed after ${(performance.now() - requestStartedAt).toFixed(1)}ms`, error);
-    const diagnostic = request.headers.get('x-draftly-render-diagnostic') === 'enabled';
-    const detail = error instanceof Error ? `${error.name}: ${error.message}`.replace(/(?:mongodb(?:\+srv)?:\/\/)[^\s]+/gi, '[database connection]').slice(0, 240) : 'Unknown rendering error.';
-    return Response.json({ error: 'Could not create resume preview.', ...(diagnostic ? { detail } : {}) }, { status: 500 });
+    return Response.json({ error: 'Could not create resume preview.' }, { status: 500 });
   }
 }
