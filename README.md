@@ -4,7 +4,7 @@ Draftly connects job requirements to portfolio evidence, then helps shape a focu
 
 ## Requirements
 
-- Node.js 20.9 or newer
+- Node.js 22.x (pinned for the server-side PDF renderer)
 - A reachable MongoDB database
 - A Groq API key and model ID for job analysis
 - Google OAuth credentials only if enabling Gmail integration
@@ -37,7 +37,7 @@ The app requires a Node.js server runtime; static export is not supported becaus
 
 ## Deploy
 
-1. Deploy to a Node.js host with Node.js 20.9 or newer and configure the environment variables from `.env.example` in the host's secret manager.
+1. Deploy to a Node.js host with Node.js 22.x and configure the environment variables from `.env.example` in the host's secret manager.
 2. Point `MONGODB_URI` at a persistent production MongoDB instance. Restrict network access to the app host and use a database user with only the permissions this app needs. Do not use the localhost example in a hosted environment.
 3. Set `GROQ_API_KEY` and `LLM_MODEL` to enable role analysis. Keep provider credentials server-side; never prefix them with `NEXT_PUBLIC_`.
 4. If enabling Gmail OAuth, configure `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `GOOGLE_REDIRECT_URI` in the host and add the exact HTTPS callback URL (`https://<your-domain>/api/gmail/callback`) to the Google OAuth client.
